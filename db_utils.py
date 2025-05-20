@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import datetime
 
-DB_PATH = "../admin panel/cartcreations.db"
+DB_PATH = "cartcreations.db"
 
 def initialize_database():
     conn = sqlite3.connect(DB_PATH)
