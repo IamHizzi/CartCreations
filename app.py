@@ -302,6 +302,183 @@ def contact():
     return render_template('contact.html', categories=CATEGORIES)
 
 
+
+# Admin Panel Below ###
+ADMIN_USERNAME = 'admin'
+ADMIN_PASSWORD = 'supersecure123'
+
+
+@app.route('/admin/login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+            session['admin_logged_in'] = True
+            return redirect(url_for('admin_dashboard'))
+        else:
+            flash("Invalid credentials", "danger")
+    return render_template('admin/admin_login.html')
+
+@app.route('/admin/logout')
+def admin_logout():
+    session.pop('admin_logged_in', None)
+    return redirect(url_for('admin_login'))
+
+@app.route('/admin/dashboard')
+def admin_dashboard():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+    
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+
+    # Fetch total orders
+    cursor.execute("SELECT COUNT(*) FROM orders")
+    total_orders = cursor.fetchone()[0]
+
+    # Fetch total revenue
+    cursor.execute("SELECT SUM(total_amount) FROM orders WHERE is_paid='Yes'")
+    total_revenue = cursor.fetchone()[0] or 0
+
+    # Fetch total products
+    cursor.execute("SELECT COUNT(*) FROM products")
+    total_products = cursor.fetchone()[0]
+
+    # Fetch total unique customers
+    cursor.execute("SELECT COUNT(DISTINCT email) FROM orders")
+    total_customers = cursor.fetchone()[0]
+
+
+    conn.close()
+
+    return render_template('admin/admin_dashboard.html',
+                           total_orders=total_orders,
+                           total_revenue=total_revenue,
+                           total_products=total_products,
+                           total_customers=total_customers
+                          )
+
+
+@app.route('/admin/products')
+def admin_products():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+    
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM products")
+    products = cursor.fetchall()
+    conn.close()
+    
+    return render_template('admin/admin_products.html', products=products)
+
+@app.route('/admin/products/create', methods=['GET', 'POST'])
+def admin_create_product():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+    
+    if request.method == 'POST':
+        name = request.form['name']
+        price = float(request.form['price'])
+        description = request.form['description']
+        image = request.form['image']
+        category = request.form['category']
+        
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO products (name, price, description, image, category)
+            VALUES (?, ?, ?, ?, ?)
+        ''', (name, price, description, image, category))
+        conn.commit()
+        conn.close()
+        
+        flash("Product added successfully", "success")
+        return redirect(url_for('admin_products'))
+    
+    return render_template('admin/admin_create_product.html')
+
+@app.route('/admin/products/edit/<int:product_id>', methods=['GET', 'POST'])
+def admin_edit_product(product_id):
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+
+    if request.method == 'POST':
+        name = request.form['name']
+        price = float(request.form['price'])
+        description = request.form['description']
+        image = request.form['image']
+        category = request.form['category']
+        
+        cursor.execute('''
+            UPDATE products SET name=?, price=?, description=?, image=?, category=?
+            WHERE id=?
+        ''', (name, price, description, image, category, product_id))
+        conn.commit()
+        conn.close()
+        
+        flash("Product updated successfully", "info")
+        return redirect(url_for('admin_products'))
+
+    cursor.execute("SELECT * FROM products WHERE id=?", (product_id,))
+    product = cursor.fetchone()
+    conn.close()
+    
+    if not product:
+        flash("Product not found", "danger")
+        return redirect(url_for('admin_products'))
+
+    return render_template('admin/admin_edit_product.html', product=product)
+
+@app.route('/admin/products/delete/<int:product_id>', methods=['POST'])
+def admin_delete_product(product_id):
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM products WHERE id=?", (product_id,))
+    conn.commit()
+    conn.close()
+    
+    flash("Product deleted", "warning")
+    return redirect(url_for('admin_products'))
+
+
+# orders recieved
+@app.route('/admin/orders')
+def admin_orders():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM orders ORDER BY transaction_time DESC")
+    orders = cursor.fetchall()
+    conn.close()
+
+    return render_template('admin/admin_orders.html', orders=orders)
+
+
+# logs
+@app.route('/admin/logs')
+def admin_logs():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM logs")
+    logs = cursor.fetchall()
+    conn.close()
+
+    return render_template('admin/admin_logs.html', logs=logs)
+
+
 if __name__ == '__main__':
     app.run(port=8000)
 
