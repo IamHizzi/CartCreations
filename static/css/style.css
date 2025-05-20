@@ -1,0 +1,118 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f9f9fb;
+    color: #333;
+}
+
+.navbar {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-weight: 600;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: scale(1.01);
+}
+
+.breadcrumb {
+    background-color: transparent;
+    padding-left: 0;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+}
+
+.quantity-form .btn {
+    border-radius: 0;
+}
+
+.btn-primary,
+.btn-outline-secondary {
+    border-radius: 8px;
+    padding: 8px 18px;
+    transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #2d6cdf;
+    border-color: #2d6cdf;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #dee2e6;
+}
+
+.input-group-sm input {
+    height: 38px;
+    border-radius: 6px !important;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 20px 0;
+    background-color: #f1f1f1;
+    color: #777;
+    text-align: center;
+}
+
+.success-message {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.success-message h2 {
+    font-size: 2rem;
+    color: #28a745;
+}
+
+@media (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto;
+    }
+}
+
+/* Global Font Setup */
+body {
+    font-family: 'Inter', sans-serif;
+    color: #333;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+}
+
+/* Button Texts, Navigation, Cards */
+.btn,
+.nav-link,
+.card-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+}
+
+/* Custom section spacing */
+section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}

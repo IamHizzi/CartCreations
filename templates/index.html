@@ -1,0 +1,377 @@
+{% extends 'base.html' %}
+
+{% block title %}Cart Creations - Premium Home Decor{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-4">Transform Your Home with Elegance</h1>
+        <p class="lead mb-5">Curated collections of timeless furniture and décor to bring comfort and style to every
+            room.</p>
+        <a href="{{ url_for('products') }}" class="btn btn-light btn-lg">Shop Now</a>
+    </div>
+</section>
+<!-- ===== Features Section ===== -->
+<section id="about_us" class="py-5 bg-light">
+    <div class="container">
+        <p class="text-uppercase text-muted mb-1">Features</p>
+        <h2 class="mb-5 fw-bold">Giving Your Home a blend of Comfort and Style</h2>
+
+        <div class="row">
+            <!-- Feature 1 -->
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 shadow-sm border-0 hover-shadow">
+                    <div class="row g-0 align-items-center">
+                        <div class="col-sm-5">
+                            <img src="https://cartcreationsgateway.com/wp-content/uploads/2025/01/feature-1-1-1-1.jpg"
+                                alt="E-Commerce Solutions" class="img-fluid rounded-start w-100">
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="card-body">
+                                <div class="mb-2">
+                                    <i class="fas fa-handshake fa-lg text-success me-2"></i>
+                                    <h5 class="card-title d-inline-block">Curated Product Collections</h5>
+                                </div>
+                                <p class="card-text small">
+                                    Our team hand-selects the finest furniture and home décor pieces to ensure a blend
+                                    of quality, comfort, and style for every space.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 shadow-sm border-0 hover-shadow">
+                    <div class="row g-0 align-items-center">
+                        <div class="col-sm-5">
+                            <img src="https://cartcreationsgateway.com/wp-content/uploads/2025/01/feature-1-1-1-2.jpg"
+                                alt="Customer Support" class="img-fluid rounded-start w-100">
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="card-body">
+                                <div class="mb-2">
+                                    <i class="fas fa-bullseye fa-lg text-success me-2"></i>
+                                    <h5 class="card-title d-inline-block">Exceptional Customer Support</h5>
+
+                                </div>
+                                <p class="card-text small">
+                                    From pre-purchase advice to after-sales care, our dedicated team is here to help you
+                                    create a seamless shopping experience.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- About Section -->
+<section class="container mb-5">
+    <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <img src="{{ url_for('static', filename='images/about.jpg') }}" alt="About Cart Creations"
+                class="img-fluid rounded">
+        </div>
+        <div class="col-lg-6">
+            <h2>About US</h2>
+            <p class="lead">Inspired Living. Crafted to Perfection.</p>
+            <p>
+                At Cart Creations, we believe your home should reflect your story. From modern minimalism to classic
+                charm, our collections are designed to elevate your lifestyle.
+                With a focus on craftsmanship and comfort, we deliver handpicked home essentials that blend aesthetics
+                with practicality.
+                At Cart Creations, we specialize in providing seamless e-commerce solutions and digital transformation
+                services. From online shopping to virtual malls, stores, and catalogs, we empower businesses with
+                advanced technology to enhance their digital presence.
+            </p>
+            <a href="{{ url_for('about') }}" class="btn btn-outline-primary">Learn More</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Payment Gateway Section ===== -->
+<section class="py-5 bg-white" id="payment_gateway">
+    <div class="container">
+        <div class="row align-items-center gy-4">
+            <div class="col-lg-6">
+                <p class="text-uppercase text-muted mb-1">Secure Payments</p>
+                <h3 class="fw-bold mb-3">Shop with Confidence. Every Transaction Secured.</h3>
+                <p>
+                    Cart Creations ensures your payments are fast, protected, and effortless. We support trusted payment
+                    gateways like JazzCash, EasyPaisa, and credit cards so you can shop worry-free.
+                </p>
+                <p>
+                    Every checkout is encrypted, verified, and built to maintain your privacy while delivering a
+                    convenient purchase experience.
+                </p>
+            </div>
+
+            <div class="col-lg-6 position-relative">
+                <img src="/static/images/jazzash-payemnt.jpg" alt="Secure Payment" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Why Choose Us Section ===== -->
+<section class="py-5 bg-light" id="why_choose_us">
+    <div class="container">
+        <div class="row align-items-center gy-5">
+            <div class="col-lg-6 position-relative">
+                <p class="text-uppercase text-muted mb-1">Why Choose Us</p>
+                <h2 class="fw-bold mb-3">We Are Award-Winning<br> Home Decor Experts</h2>
+                <p class="mb-4">
+                    We blend beautiful design with exceptional service. Whether you're furnishing your first home or
+                    refreshing your favorite space, we’re your partner in style and simplicity.
+                </p>
+
+                <!-- Feature 1 -->
+                <div class="d-flex align-items-start mb-4">
+                    <div class="me-3">
+                        <i class="fas fa-cogs fa-lg text-success"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Premium Quality Products</h5>
+                        <p class="mb-0 small">Only the best materials and finishes — built to last, designed to impress.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="d-flex align-items-start mb-4">
+                    <div class="me-3">
+                        <i class="fas fa-shield-alt fa-lg text-success"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Trusted Payment Solutions</h5>
+                        <p class="mb-0 small">All transactions are securely processed through reliable gateways.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="d-flex align-items-start mb-4">
+                    <div class="me-3">
+                        <i class="fas fa-mobile-alt fa-lg text-success"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Hassle-Free Shopping</h5>
+                        <p class="mb-0 small">Intuitive navigation and fast checkout process.</p>
+                    </div>
+                </div>
+
+                <!-- Contact Button -->
+                <a href="{{ url_for('contact') }}" class="btn btn-outline-primary mt-3">
+                    Contact Us
+                </a>
+
+                <!-- Decorative shape -->
+                <img src="https://cartcreationsgateway.com/wp-content/uploads/2025/01/main-slider-shape-11.png"
+                    alt="decor" width="60" height="100" class="position-absolute top-0 end-0 d-none d-md-block"
+                    style="z-index: -1;">
+            </div>
+
+            <!-- Image Content -->
+            <div class="col-lg-6 position-relative text-center">
+                <img src="https://cartcreationsgateway.com/wp-content/uploads/2025/01/why-choose-one-img-1-1-1.jpg"
+                    class="img-fluid rounded shadow" alt="Why Choose Us">
+                <img src="https://cartcreationsgateway.com/wp-content/uploads/2025/01/why-choose-one-shape-2.png"
+                    alt="decor shape" class="position-absolute" style="bottom: -20px; right: -30px; width: 100px;">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== FAQs Section ===== -->
+<section id="faqs" class="py-5 bg-white">
+    <div class="container">
+        <div class="row align-items-center gy-5">
+            <!-- FAQ Image -->
+            <div class="col-lg-6 text-center">
+                <img src="static/images/faq-one-img-1-1-1.jpg" class="img-fluid rounded shadow" alt="FAQs">
+                <img src="https://cartcreationsgateway.com/wp-content/uploads/2025/01/why-choose-one-shape-2.png"
+                    alt="decor" style="bottom: -20px; right: -20px; width: 100px;">
+            </div>
+
+            <!-- FAQ Text & Title -->
+            <div class="col-lg-6">
+                <p class="text-uppercase text-muted mb-1">FAQs</p>
+                <h2 class="fw-bold mb-3">Frequently Asked Questions</h2>
+
+
+                <!-- FAQ Accordion -->
+                <div class="accordion" id="faqAccordion">
+                    <!-- Item 1 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq1-heading">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq1" aria-expanded="true">
+                                1. What is Cart Creations?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Cart Creations is an online destination for premium home décor and furniture, offering
+                                handpicked collections and seamless shopping.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq2-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq2">
+                                2. How do I place an order?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Browse our products, add your favorites to the cart, and proceed to checkout using our
+                                secure payment options.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq3-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq3">
+                                3. Is my Payment Secure?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes, we use encrypted payment gateways like JazzCash, EasyPaisa, and credit/debit cards
+                                for full transaction security.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq4-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq4">
+                                4. Do you ship acroos Pakistan?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Absolutely! We offer fast, trackable shipping to all major cities nationwide.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq5-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq5">
+                                5. What If I have a return or Issue?
+                            </button>
+                        </h2>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Our support team is here to help. You can initiate returns or ask questions through our
+                                Contact page.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Testimonials -->
+<section class="bg-light py-5 mb-5">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="text-center">What Our Customers Say</h2>
+                <p class="text-center text-muted">Don't just take our word for it</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="card-text">"I absolutely love my new lamp from Cart Creations! The quality is
+                            outstanding and it looks even better in person than it did online. The shipping was fast and
+                            the packaging was secure."</p>
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0">Umar Farooq</h6>
+                                <small class="text-muted">Karachi</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="card-text">"I've ordered multiple pieces of furniture from Cart Creations and have
+                            been impressed every time. The wooden desk I purchased is sturdy, beautiful, and was easy to
+                            assemble. Highly recommend!"</p>
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0">Shakir Niazi</h6>
+                                <small class="text-muted">Mianwali</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star-half-alt text-warning"></i>
+                        </div>
+                        <p class="card-text">"The customer service at Cart Creations is exceptional. I had a question
+                            about a product and they responded quickly and were very helpful. The throw blanket I
+                            ordered is so soft and cozy!"</p>
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0">Sohail Khan</h6>
+                                <small class="text-muted">Peshawar</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

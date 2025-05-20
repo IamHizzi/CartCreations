@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout - Cart Creations{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent p-0">
+            <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('cart') }}">Cart</a></li>
+            <li class="breadcrumb-item active">Checkout</li>
+        </ol>
+    </nav>
+
+    <h2 class="mb-4">Checkout</h2>
+
+    <form method="POST" action="{{ url_for('pay_now') }}" id="checkout-form">
+        <div class="row g-5">
+            <!-- Billing Details -->
+            <div class="col-md-7">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Billing Details</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control required-field" name="billing_name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control required-field" name="billing_email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Shipping Address</label>
+                            <input type="text" class="form-control required-field" name="billing_address" required>
+                        </div>
+                        <input type="hidden" name="cnic" id="cnic-input">
+                        <input type="hidden" name="msisdn" id="msisdn-input">
+                        <input type="hidden" name="payment_method" id="payment-method">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary & Payment Options -->
+            <div class="col-md-5">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Order Summary</h5>
+                        <ul class="list-group mb-3">
+                            {% for item in cart_items %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div>{{ item.name }} x {{ item.quantity }}</div>
+                                <span>PKR {{ "%.2f"|format(item.price * item.quantity * 264) }}</span>
+                            </li>
+                            {% endfor %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <strong>Total</strong>
+                                <strong>PKR {{ "%.2f"|format(cart_total  * 264) }}</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-3">
+                    <button type="button" class="btn btn-warning" id="jazzcash-btn" disabled onclick="openModal('JazzCash')">Pay with JazzCash</button>
+                    <button type="button" class="btn btn-info text-white" id="easypaisa-btn" disabled onclick="openModal('EasyPaisa')">Pay with EasyPaisa</button>
+                    <button type="submit" class="btn btn-secondary" id="cod-btn" disabled onclick="setCOD()">Cash on Delivery</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Payment Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form onsubmit="submitPaymentForm(event)">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Enter Payment Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="modal-cnic" class="form-label">CNIC (Last 6 digits)</label>
+                        <input type="text" class="form-control" id="modal-cnic" maxlength="6" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modal-msisdn" class="form-label">Mobile Number</label>
+                        <input type="text" class="form-control" id="modal-msisdn" maxlength="11" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Confirm & Pay</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    let selectedMethod = '';
+
+    function openModal(method) {
+        selectedMethod = method;
+        document.getElementById('paymentModalLabel').textContent = `Pay with ${method}`;
+        const modal = new bootstrap.Modal(document.getElementById('paymentModal'));
+        modal.show();
+    }
+
+    function submitPaymentForm(event) {
+        event.preventDefault();
+        document.getElementById('cnic-input').value = document.getElementById('modal-cnic').value;
+        document.getElementById('msisdn-input').value = document.getElementById('modal-msisdn').value;
+        document.getElementById('payment-method').value = selectedMethod;
+        const modal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+        modal.hide();
+        document.getElementById('checkout-form').submit();
+    }
+
+    function setCOD() {
+        document.getElementById('payment-method').value = 'CashOnDelivery';
+    }
+
+    // Enable payment buttons if all billing fields are filled
+    const requiredFields = document.querySelectorAll('.required-field');
+    const buttons = ['jazzcash-btn', 'easypaisa-btn', 'cod-btn'].map(id => document.getElementById(id));
+
+    requiredFields.forEach(field => {
+        field.addEventListener('input', () => {
+            const allFilled = Array.from(requiredFields).every(input => input.value.trim() !== '');
+            buttons.forEach(btn => btn.disabled = !allFilled);
+        });
+    });
+</script>
+{% endblock %}

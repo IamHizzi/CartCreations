@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - Cart Creations{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent p-0">
+            <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+            <li class="breadcrumb-item active">About Us</li>
+        </ol>
+    </nav>
+
+    <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <h2 class="mb-4">Our Story</h2>
+            <p>At <strong>Cart Creations</strong>, we believe that every home deserves to feel personal, warm, and inspired. Founded in 2023, our goal is to bring carefully curated furniture, lighting, textiles, and decor right to your doorstep.</p>
+            <p>With a passion for design and a commitment to quality, we partner with artisans and manufacturers around the world to deliver products that blend style, function, and affordability.</p>
+            <p>Whether you're refreshing a space or creating your dream home, we're here to help you make it uniquely yours.</p>
+        </div>
+        <div class="col-lg-6">
+            <img src="{{ url_for('static', filename='images/about-banner.jpg') }}" class="img-fluid rounded shadow" alt="About Cart Creations">
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h4>Why Shop With Us?</h4>
+        <ul class="list-unstyled mt-3">
+            <li><i class="fas fa-check-circle text-success me-2"></i> Handpicked collections that suit every style</li>
+            <li><i class="fas fa-check-circle text-success me-2"></i> Affordable luxury and unmatched quality</li>
+            <li><i class="fas fa-check-circle text-success me-2"></i> Fast, secure shipping</li>
+            <li><i class="fas fa-check-circle text-success me-2"></i> 24/7 customer support</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

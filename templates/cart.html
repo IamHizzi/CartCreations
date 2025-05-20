@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Shopping Cart - Cart Creations{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent p-0">
+            <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+            <li class="breadcrumb-item active">Shopping Cart</li>
+        </ol>
+    </nav>
+
+    <h2 class="mb-4">Your Shopping Cart</h2>
+
+    <div class="row">
+        <!-- Cart Items -->
+        <div class="col-lg-8">
+            {% if cart_items %}
+            <div class="card shadow-sm">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th style="width: 150px;">Quantity</th>
+                                    <th>Subtotal</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ url_for('static', filename='images/' + item.image) }}"
+                                                class="rounded shadow-sm me-3" width="80" height="80"
+                                                style="object-fit: cover;">
+                                            <div>
+                                                <h6 class="mb-1">{{ item.name }}</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>PKR {{ "%.2f"|format(item.price * 264) }}</td>
+                                    <td>
+                                        <form action="{{ url_for('update_cart') }}" method="post"
+                                            class="d-flex align-items-center">
+                                            <input type="hidden" name="product_id" value="{{ item.id }}">
+                                            <div class="input-group input-group-sm">
+                                                <button type="button" class="btn btn-outline-secondary"
+                                                    onclick="adjustQuantity(this, -1)">−</button>
+                                                <input type="number" name="quantity" class="form-control text-center"
+                                                    min="0" max="10" value="{{ item.quantity }}"
+                                                    onchange="this.form.submit()">
+                                                <button type="button" class="btn btn-outline-secondary"
+                                                    onclick="adjustQuantity(this, 1)">+</button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                    <td>PKR {{ "%.2f"|format(item.price * item.quantity * 264) }}</td>
+                                    <td>
+                                        <form action="{{ url_for('update_cart') }}" method="post">
+                                            <input type="hidden" name="product_id" value="{{ item.id }}">
+                                            <input type="hidden" name="quantity" value="0">
+                                            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="alert alert-info mt-3">Your cart is empty.</div>
+            {% endif %}
+        </div>
+
+        <!-- Cart Summary -->
+        <div class="col-lg-4 mt-4 mt-lg-0">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Order Summary</h5>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Subtotal</span>
+                            <strong>PKR {{ "%.2f"|format(cart_total *264) }}</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Tax (0%)</span>
+                            <strong>PKR {{ "%.2f"|format(cart_total * 264) }}</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Total</span>
+                            <strong>PKR {{ "%.2f"|format(cart_total  * 264) }}</strong>
+                        </li>
+                    </ul>
+                    {% if cart_items %}
+                    <a href="{{ url_for('checkout') }}" class="btn btn-primary w-100">Proceed to Checkout</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    function adjustQuantity(button, delta) {
+        const input = button.parentElement.querySelector('input[type=number]');
+        let newValue = parseInt(input.value) + delta;
+        if (newValue >= 0 && newValue <= 10) {
+            input.value = newValue;
+            input.form.submit();
+        }
+    }
+</script>
+{% endblock %}
+{% endblock %}

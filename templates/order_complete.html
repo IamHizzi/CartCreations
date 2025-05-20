@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %} Order Receipt - Cart Creations{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4 text-success">Order Receipt 🎉</h2>
+    <div class="card shadow-sm mb-5">
+        <div class="card-body">
+            <h4 class="mb-3">Transaction Details</h4>
+            <ul class="list-group mb-4">
+                <li class="list-group-item">Transactio ID:</strong> {{ transaction_data['pp_TxnRefNo'] }}</li>
+                <li class="list-group-item">Status:</strong> {{ transaction_data['pp_ResponseMessage'] }}</li>
+                <li class="list-group-item">Amount:</strong> PKR {{ cart_total * 264  }}</strong></li>
+            </ul>
+            <h4 class="mb-3">Order Summary</h4>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between">
+                    <strong>Subtotal</strong>
+                    <strong>PKR {{ "%.2f"|format(cart_total * 264) }}</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <strong>Tax (0%)</strong>
+                    <strong>PKR {{ "%.2f"|format(cart_total  * 264) }}</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <strong>Total</strong>
+                    <strong>PKR {{ "%.2f"|format(cart_total  * 264) }}</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <strong> Items: </strong>
+                    {% for item in cart_items %}
+                    <ul>
+                        {% for item in cart_items %}
+                        <li class="list-group-item d-flex justify-content-between"> {{ item.name }} : {{ item.quantity
+                            }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endfor %}
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between">
+                    <p><strong>Payment Method:</strong>
+                        <strong>
+                            {% if transaction_data['pp_ResponseCode'] == 'COD' %}
+                            Cash on Delivery
+                            {% else %}
+                            JazzCash / EasyPaisa
+                            {% endif %} </strong>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="{{ url_for('home') }}" class="btn btn-outline-primary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
