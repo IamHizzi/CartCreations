@@ -1,12 +1,13 @@
-import itertools
-import random
+from datetime import datetime
 import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import requests
 import hmac, hashlib
 from datetime import datetime, timedelta
 ## database
-from db_utils import DB_PATH, log_event, save_order
+##from db_utils import  log_event, save_order
+DB_PATH = "cartcreations.db"
+
 
 app = Flask(__name__)
 app.secret_key = 'you_cant_guess_this'  
@@ -24,6 +25,46 @@ JAZZCASH_INTEGRITY_SALT = "8s257vww96"
 
 # # Cycle through them in memory only
 # prefix_cycle = itertools.cycle(txn_refs)
+
+
+def log_event(event_type, message):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        INSERT INTO logs (event_type, message, created_at)
+        VALUES (?, ?, ?)
+    ''', (event_type, message, datetime.now()))
+    conn.commit()
+    conn.close()
+
+def save_order(order_data):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        INSERT INTO orders (
+            customer_name, email, address, product_summary, total_amount,
+            currency, payment_method, transaction_ref, transaction_time,
+            transaction_status, is_paid, cnic, mobile
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ''', (
+        order_data['customer_name'],
+        order_data['email'],
+        order_data['address'],
+        order_data['product_summary'],
+        order_data['total_amount'],
+        order_data['currency'],
+        order_data['payment_method'],
+        order_data['transaction_ref'],
+        order_data['transaction_time'],
+        order_data['transaction_status'],
+        order_data['is_paid'],
+        order_data['cnic'],
+        order_data['mobile']
+    ))
+    conn.commit()
+    conn.close()
+
 
 @app.route('/pay-now', methods=['POST'])
 def pay_now():
